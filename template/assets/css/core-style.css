@@ -1,0 +1,247 @@
+@charset "utf-8";
+
+/*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+/*
+ * Droid Arabic Naskh (Arabic) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+    font-family: 'Droid Arabic Naskh';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../font/DroidNaskh-Regular.eot);
+    src: url(../font/DroidNaskh-Regular.eot?#iefix) format('embedded-opentype'),
+         url(../font/DroidNaskh-Regular.woff2) format('woff2'),
+         url(../font/DroidNaskh-Regular.woff) format('woff'),
+         url(../font/DroidNaskh-Regular.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Droid Arabic Naskh';
+    font-style: normal;
+    font-weight: 700;
+    src: url(../font/DroidNaskh-Bold.eot);
+    src: url(../font/DroidNaskh-Bold.eot?#iefix) format('embedded-opentype'),
+         url(../font/DroidNaskh-Bold.woff2) format('woff2'),
+         url(../font/DroidNaskh-Bold.woff) format('woff'),
+         url(../font/DroidNaskh-Bold.ttf) format('truetype');
+}
+
+/* Copyright Daween 2015 */
+
+body {
+    background: url("../image/background.png") no-repeat center top #25afcc;
+    color: #555;
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    font-family: Tahoma, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff6c00;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.elem-50 {
+    width: 50%;
+}
+
+.elem-right {
+    float: right;
+    height: 100%;
+    /*background: green;*/
+}
+
+.elem-left {
+    float: left;
+    height: 100%;
+    /*background: yellow;*/
+}
+
+#header-outer {
+    background: none repeat scroll 0 0 #ffffff;
+    border-bottom: 1px solid #bbbbbb;
+    border-top: 2px solid #ff6c00;
+    height: 40px;
+    min-width: 900px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+#body-outer {
+    padding-top: 55px;
+}
+
+#body-inner {
+    background: rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+    width: 850px;
+}
+
+/* 239 */
+.widget {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    margin: 8px;
+}
+
+.widget-label {
+    border-bottom: 1px solid #eeeeee;
+    color: #ff6c00;
+    font-family: "Droid Arabic Naskh",Tahoma,serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+#dashboard {
+    float: right;
+    width: 230px;
+}
+
+#content-main {
+    margin-right: 230px;
+    overflow-y: auto;
+}
+
+#content-main > .widget {
+    margin-right: 0;
+}
+
+/************************************************************/
+
+#user-profile {
+
+}
+
+/* 214x78 */
+#user-profile #user-background {
+    height: 78px;
+    background: url("../../static/profile/profile_default.png") no-repeat top center;
+}
+
+#user-profile > a img {
+    border: 3px solid #ffffff;
+    display: block;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -46px;
+    width: 80px;
+}
+
+#user-profile ul {
+    list-style: none;
+    margin: 5px auto 0;
+    overflow: auto;
+    padding: 0;
+    width: 190px;
+}
+
+#user-profile li {
+    float: right;
+    text-align: center;
+    width: 33.33%;
+}
+
+#user-profile ul li a {
+    display: inline-block;
+}
+
+#user-profile ul li a > span:first-child {
+    color: #ff6c00;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 15px;
+}
+
+#user-profile ul li a > span {
+    display: block;
+    font-family: "Droid Arabic Naskh", Tahoma, serif;
+}
+
+#hot-topics {
+    overflow: hidden;
+}
+
+#hot-topics ul {
+    list-style: none;
+    margin: 0 5px 5px;
+    padding: 5px;
+}
+
+#hot-topics li {
+    line-height: 18px;
+}
+
+#hot-topics a {
+    font-size: 14px;
+}
+
+#suggested-people {
+    overflow: hidden;
+}
+
+#suggested-people a {
+    display: block;
+    margin-top: 0;
+    overflow: auto;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-top: 3px;
+    text-decoration: none;
+}
+
+#suggested-people a img {
+    background: #333333;
+    float: right;
+    height: 40px;
+    margin-right: 3px;
+    width: 40px;
+}
+
+#suggested-people a div {
+    font-size: 14px;
+    margin-right: 46px;
+    min-height: 40px;
+}
+
+#suggested-people a div p {
+    margin: 0;
+}
+
+#suggested-people a div span {
+    font-size: 12px;
+}
+
+#suggested-topics ul {
+    display: inline-block;
+    font-size: 14px;
+    list-style: none;
+    margin: 5px;
+    padding: 5px;
+}
+#suggested-topics a span {
+    width: 20px;
+}
+
