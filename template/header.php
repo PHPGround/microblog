@@ -17,8 +17,8 @@
         <ul>
           <li><a href="<?= Tmpl::static_url('/') ?>"><span class="fa fa-home"></span>الرئيسية</a></li>
           <li><a href="<?= Tmpl::static_url('/p/discover') ?>"><span class="fa fa-compass"></span>اكتشف</a></li>
-          <li><a href="<?= Tmpl::static_url('/p/signup') ?>"><span class="fa fa-user-plus"></span>التسجيل</a></li>
-          <li><a href="<?= Tmpl::static_url('/p/signin') ?>"><span class="fa fa-user"></span>دخول</a></li>
+          <li><a id="button-signup" href="#"><span class="fa fa-user-plus"></span>التسجيل</a></li>
+          <li><a id="button-signin" href="#"><span class="fa fa-user"></span>دخول</a></li>
         </ul>
       </nav>
       <div id="tool-bar">
