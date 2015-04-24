@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/microblog/static
+RewriteCond %{REQUEST_URI} !^/microblog/assets
+
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
