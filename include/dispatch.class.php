@@ -1,8 +1,10 @@
 <?php
 
-//
-// Dispatch urls to callbacks based on regex.
-//
+/**
+ * Class Dispatch
+ *
+ * Dispatch urls to callbacks based on regex.
+ */
 class Dispatch
 {
   private $table;
@@ -12,9 +14,9 @@ class Dispatch
     $this->table = $table;
   }
 
-  //
-  // Start dispatching urls to callbacks.
-  //
+  /**
+   * Start dispatching urls to callbacks.
+   */
   public function start()
   {
     $url = str_replace(APP_BASE_URL, '', strtok($_SERVER['REQUEST_URI'], '?'));

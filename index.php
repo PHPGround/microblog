@@ -8,11 +8,12 @@ define('APP_BASE_URL', dirname($_SERVER['PHP_SELF']) === DIRECTORY_SEPARATOR &&
 require_once APP_PATH . '/include/dispatch.class.php';
 require_once APP_PATH . '/include/tmpl.class.php';
 
-function index()
-{
-  Tmpl::render('/index.php');
-}
+require_once APP_PATH . '/controller/index.php';
 
+/**
+ * Dispatch requested URLs to their controllers based on the regex and the HTTP
+ * method.
+ */
 (new Dispatch([
   '#^/$#' => ['GET', 'index']
 ]))->start();
