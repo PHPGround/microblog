@@ -330,7 +330,7 @@ a:hover {
 
 /******************************************/
 
-#login-form {
+.account-form {
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     height: 100%;
@@ -339,25 +339,76 @@ a:hover {
     display: none;
 }
 
-#login-form-wrapper {
+.account-form-wrapper {
     position: absolute;
     background: #fff;
-    width: 640px;
-    height: 400px;
-
+    width: 400px;
 }
 
-#close-icon {
-    position: relative;
+.account-form-close {
+    position: absolute;
     top: 0;
-    right: 0;
-    height: 32px;
-    width: 32px;
-    line-height: 32px;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    line-height: 50px !important;
     text-align: center;
     cursor: pointer;
 }
 
-#close-icon:hover {
+.account-form-close:hover {
     color: #ff6c00;
+}
+
+.account-form-wrapper h3 {
+    background: #f4f4f4;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+    padding: 5px 25px 5px 5px;
+    font-family: "Droid Arabic Naskh", Tahoma, serif;
+    text-align: right;
+}
+
+.account-form-wrapper form {
+    /*background: greenyellow;*/
+    margin: 25px;
+}
+
+.form-input {
+    border: 2px solid #cccccc;
+    border-bottom-width: 4px;
+    font-size: 14px;
+    padding: 0 15px 2px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+}
+
+.form-button {
+    background: #58c458;
+    border: medium none;
+    color: #fff;
+    height: 50px;
+    width: 100%;
+    font-family: "Droid Arabic Naskh", Tahoma, serif;
+}
+
+.form-button:hover {
+    background: #398439;
+}
+
+.form-input:focus {
+    border-color: #ff6c00;
+}
+
+.form-input:invalid {
+    border-color: red;
+    box-shadow: none;
+}
+
+.form-input:last-child {
+    margin-bottom: 0;
 }

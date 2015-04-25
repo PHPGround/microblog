@@ -3,36 +3,46 @@ $(document).ready(function() {
   /**
    * Center the login form in the middle of the screen.
    */
-  var loginFormResizeCallback = function () {
-    var loginFormWrapper = $('#login-form-wrapper');
+  $(window).resize(function () {
+    var form = $('.account-form-wrapper');
 
-    loginFormWrapper.css({
-      'left': Math.floor(($(window).width() - loginFormWrapper.outerWidth()) / 2) + 'px',
-      'top': Math.floor(($(window).height() - loginFormWrapper.outerHeight()) / 2) + 'px'
+    form.css({
+      'left': Math.round(($(window).width() - form.outerWidth()) / 2) + 'px',
+      'top': Math.round(($(window).height() - form.outerHeight()) / 2) + 'px'
     });
-  };
+  });
 
-  loginFormResizeCallback(); $(window).resize(loginFormResizeCallback);
+  $(window).trigger('resize');
 
   /**
    * Add event listener to button-signup and button-signin.
    */
-  $('#login-form').click(function (event) {
+  $('.account-form').click(function(event) {
     if(event.target == this)
-      $(this).hide();
-  });
-  
-  $('#button-signup').click(function (event) {
-    event.stopPropagation();
-    $("#login-form").css({'display' : 'block'});
+      $(this).fadeOut(100);
   });
 
-  $('#button-signin').click(function (event) {
-    event.stopPropagation();
-    $("#login-form").css({'display' : 'block'});
+  $('.account-form-close').click(function(event) {
+    $(this).parent().parent().fadeOut(100);
   });
 
-  $('#close-icon').click(function (event) {
-    $('#login-form').hide();
-  })
+  $('#button-signup').click(function(event) {
+    $('#signup-form').fadeIn(100);
+    $(window).trigger('resize');
+  });
+
+  $('.account-form-wrapper form input[name="account"]').keyup(function() {
+    this.setCustomValidity('');
+
+    if(!new XRegExp('^[\\p{L}\\d_]+$').test($(this).val()))
+      this.setCustomValidity('اسم المستخدم يجب أن يحتوي على حروف فقط أو علامة _ بدون مسافات');
+    if($(this).val().length > 5)
+      this.setCustomValidity('يجب أن لايزد طول اسم الحساب عن 5 أحرف');
+  });
+
+  $('input[type="email"]').on('invalid', function(event) {
+    this.setCustomValidity('');
+    if(!event.target.validity.valid)
+      event.target.setCustomValidity('البريد المدخل غير سليم');
+  });
 });
