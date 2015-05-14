@@ -1,65 +1,82 @@
 <?php Tmpl::render('/header.php', $args) ?>
   <div id="body-outer">
+
+    <div id="current-user">
+      <div id="current-meta">
+        <a href="<?= APP_BASE_URL . '/' . $args['page']['account'] ?>">
+          <img id="user-avatar" src="<?= APP_BASE_URL ?>/static/avatar/avatar_<?= $args['page']['set_avatar']? $args['page']['id'] : 'default' ?>.png" alt="???-user-???">
+          <div id="user-name"><?= Tmpl::escape($args['page']['name']) ?></div>
+          <div id="user-account">@<?= Tmpl::escape($args['page']['account']) ?></div>
+        </a>
+      </div>
+<?php if($_SESSION['user.id'] != $args['page']['id']): ?>
+
+    <button id="followed-user"<?=$args['page']['followed_by_me']? '': ' style="display:none"' ?> data-user-id="<?= $args['page']['id'] ?>">
+      <span id="button-layer-1">مُتابع</span>
+      <span id="button-layer-2">إلغاء المتابعة</span>
+    </button>
+
+  <button id="follow-user"<?=$args['page']['followed_by_me']? ' style="display:none"' : '' ?> data-user-id="<?= $args['page']['id'] ?>">تابع</button>
+
+<?php endif ?>
+    </div>
+
     <div id="body-inner">
 
       <div id="dashboard">
         <div class="widget">
           <div id="user-profile">
-            <div id="user-background"></div>
-            <a href="<?= APP_BASE_URL . '/' . $_SESSION['user.account'] ?>">
-              <img id="user-avatar" src="static/avatar/avatar_<?= $args['state']['set_avatar']? $_SESSION['user.id'] : 'default' ?>.png" alt="???-user-???">
-              <h3><?= Tmpl::escape($_SESSION['user.name']) ?></h3>
-            </a>
             <ul>
               <li>
                 <a href="#/user">
                   <span>تدوينات</span>
-                  <span data-state-blogs="<?=$args['state']['blogs']?>"><?= Tmpl::ar($args['state']['blogs']) ?></span>
+                  <span data-state-blogs="<?=$args['state']['blogs']?>"><?= Tmpl::ar($args['page']['blogs']) ?></span>
                 </a>
               </li>
               <li>
                 <a href="#/user/followers">
                   <span>متابعين</span>
-                  <span><?= Tmpl::ar($args['state']['followers']) ?></span>
+                  <span><?= Tmpl::ar($args['page']['followers']) ?></span>
                 </a>
               </li>
               <li>
                 <a href="#/user/following">
                   <span>يتابع</span>
-                  <span><?= Tmpl::ar($args['state']['following']) ?></span>
+                  <span><?= Tmpl::ar($args['page']['following']) ?></span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
-        <?php if($args['hashes']): ?>
-          <div class="widget">
-            <div class="widget-label">حديث الساعة</div>
-            <div id="hot-topics">
-              <ul>
-                <?php foreach($args['hashes'] as $hash): ?>
-                  <li><a href="<?= APP_BASE_URL . '/p/search?q=' . Tmpl::escape($hash['hash']) ?>"><?= urldecode(Tmpl::escape($hash['hash'])) ?></a></li>
-                <?php endforeach ?>
-              </ul>
-            </div>
+
+<?php if($args['hashes']): ?>
+        <div class="widget">
+          <div class="widget-label">حديث الساعة</div>
+          <div id="hot-topics">
+            <ul>
+<?php foreach($args['hashes'] as $hash): ?>
+              <li><a href="<?= APP_BASE_URL . '/p/search?q=' . Tmpl::escape($hash['hash']) ?>"><?= urldecode(Tmpl::escape($hash['hash'])) ?></a></li>
+<?php endforeach ?>
+            </ul>
           </div>
-        <?php endif ?>
-        <?php if($args['follow']): ?>
-          <div class="widget">
-            <div class="widget-label">أشخاص مقترحين</div>
-            <div id="suggested-people">
-              <?php foreach($args['follow'] as $user): ?>
-                <a href="<?= APP_BASE_URL . '/' . $user['account'] ?>">
-                  <img src="static/avatar/avatar_<?= $user['set_avatar'] ? $user['id'] : 'default' ?>.png" alt="">
-                  <div>
-                    <p><?= $user['name'] ?></p>
-                    <span>@<?= $user['account'] ?></span>
-                  </div>
-                </a>
-              <?php endforeach ?>
-            </div>
+        </div>
+ <?php endif ?>
+<?php if($args['follow']): ?>
+        <div class="widget">
+          <div class="widget-label">أشخاص مقترحين</div>
+          <div id="suggested-people">
+<?php foreach($args['follow'] as $user): ?>
+  <a href="<?= APP_BASE_URL . '/' . $user['account'] ?>">
+    <img src="static/avatar/avatar_<?= $user['set_avatar'] ? $user['id'] : 'default' ?>.png" alt="">
+    <div>
+      <p><?= $user['name'] ?></p>
+      <span>@<?= $user['account'] ?></span>
+    </div>
+  </a>
+<?php endforeach ?>
           </div>
-        <?php endif ?>
+        </div>
+<?php endif ?>
         <div class="widget">
           <div class="widget-label">مواضيع شائعة</div>
           <div id="suggested-topics">
@@ -91,7 +108,7 @@
       </div>
       <div id="content-main">
 
-
+<?php if($_SESSION['user.id'] == $args['page']['id']) : ?>
         <div id="post-blog">
           <form action="javascript:;" method="post">
             <p>انشر تدوينة جديدة!</p>
@@ -141,39 +158,38 @@
             </ul>
           </div>
         </div>
-
-
+<?php endif ?>
         <div id="main-list-wrapper">
 
-          <?php if($args['blogs']): ?>
-            <?php foreach($args['blogs'] as $blog) : ?>
+<?php if($args['blogs']): ?>
+<?php foreach($args['blogs'] as $blog) : ?>
 
-              <div class="blog" data-blog-id="<?= $blog['blog_id'] ?>">
-                <a href="<?= APP_BASE_URL . '/' . $blog['account'] ?>">
-                  <span class="blog-time" data-time="<?= $blog['blog_date'] ?>"></span>
-                  <img src="static/avatar/avatar_<?= $blog['set_avatar']? $blog['user_id'] : 'default' ?>.png" alt="">
-                  <div>
-                    <p><?= Tmpl::escape($blog['name']) ?></p>
-                    <span>@<?= Tmpl::escape($blog['account']) ?></span>
-                  </div>
-                </a>
-                <p><?= Tmpl::norm($blog['text']) ?></p>
-
-                <div class="blog-options">
-                  <ul>
-                    <li<?= $blog['comment_by_me']? ' class="comment-icon"' : ''?>><a href="javascript:;" class="fa fa-reply"></a><span><?= Tmpl::ar($blog['comment_times']) ?></span></li>
-                    <li <?php if($blog['user_id'] != $_SESSION['user.id']): ?> data-reblog-id="<?= $blog['blog_id'] ?>" <?php else : ?> class="no-reblog-button" <?php endif?> <?= $blog['reblog_by_me']? ' class="reblog-icon"' : ''?>><a href="javascript:;" class="fa fa-share-alt"></a><span><?= Tmpl::ar($blog['reblog_times']) ?></span></li>
-                    <li<?= $blog['favorite_by_me']? ' class="favorite-icon"' : ''?>><a href="javascript:;" class="fa fa-star"></a><span><?= Tmpl::ar($blog['favorite_times']) ?></span></li>
-                    <li style="float: left; margin-left: 10px; width: auto" ><a href="javascript:;" class="fa fa-expand"></a></li>
-                  </ul>
-                </div>
+          <div class="blog" data-blog-id="<?= $blog['blog_id'] ?>">
+            <a href="<?= APP_BASE_URL . '/' . $blog['account'] ?>">
+              <span class="blog-time" data-time="<?= $blog['blog_date'] ?>"></span>
+              <img src="static/avatar/avatar_<?= $blog['set_avatar']? $blog['user_id'] : 'default' ?>.png" alt="">
+              <div>
+                <p><?= Tmpl::escape($blog['name']) ?></p>
+                <span>@<?= Tmpl::escape($blog['account']) ?></span>
               </div>
-            <?php endforeach ?>
-          <?php else : ?>
-            <div class="blog blog-empty">
-              <div>لم تُنشر أي تدوينة بعد!</div>
+            </a>
+            <p><?= Tmpl::norm($blog['text']) ?></p>
+
+            <div class="blog-options">
+              <ul>
+                <li<?= $blog['comment_by_me']? ' class="comment-icon"' : ''?>><a href="javascript:;" class="fa fa-reply"></a><span><?= Tmpl::ar($blog['comment_times']) ?></span></li>
+                <li <?php if($blog['user_id'] != $_SESSION['user.id']): ?> data-reblog-id="<?= $blog['blog_id'] ?>" <?php else : ?> class="no-reblog-button" <?php endif?> <?= $blog['reblog_by_me']? ' class="reblog-icon"' : ''?>><a href="javascript:;" class="fa fa-share-alt"></a><span><?= Tmpl::ar($blog['reblog_times']) ?></span></li>
+                <li<?= $blog['favorite_by_me']? ' class="favorite-icon"' : ''?>><a href="javascript:;" class="fa fa-star"></a><span><?= Tmpl::ar($blog['favorite_times']) ?></span></li>
+                <li style="float: left; margin-left: 10px; width: auto" ><a href="javascript:;" class="fa fa-expand"></a></li>
+              </ul>
             </div>
-          <?php endif ?>
+          </div>
+<?php endforeach ?>
+<?php else : ?>
+          <div class="blog blog-empty">
+            <div>لم تُنشر أي تدوينة بعد!</div>
+          </div>
+<?php endif ?>
         </div>
 
       </div>

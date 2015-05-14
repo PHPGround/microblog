@@ -1,11 +1,24 @@
 <?php
 
-function index()
+require_once APP_PATH . '/include/dbfactory.class.php';
+require_once APP_PATH . '/include/util.class.php';
+
+/**
+ * Index page controller.
+ */
+function user()
 {
   if (!isset($_SESSION['user.id'])) {
     header('Location: ' . APP_BASE_URL . '/p/signin');
     exit(0);
   }
+
+
+  $url = str_replace(APP_BASE_URL, '', strtok(urldecode($_SERVER['REQUEST_URI']), '?'));
+  preg_match('#/([\pL_]+)$#u', $url, $matches);
+
+
+  assert(isset($matches[1]));
 
   $db = DbFactory::create();
 
@@ -41,28 +54,52 @@ function index()
   $stmt->free_result();
 
   $stmt = $db->prepare('SELECT
-    user_id,
-    account,
-    name,
-    set_avatar,
-    blog_id,
-    text,
-    blog_date,
-    rebloged,
-    rebloged_by,
-    rebloged_by_name,
-    rebloged_by_account,
-    comment_times,
-    reblog_times,
-    favorite_times,
-    comment_by_me,
-    reblog_by_me,
-    favorite_by_me
+    *,
+    (SELECT
+            COUNT(*)
+        FROM
+            blog
+        WHERE
+            user_id = user.id) AS blogs,
+    (SELECT
+            COUNT(*)
+        FROM
+            follow
+        WHERE
+            dist_user_id = user.id) AS followers,
+    (SELECT
+            COUNT(*)
+        FROM
+            follow
+        WHERE
+            src_user_id = user.id) AS following,
+    (SELECT
+    IFNULL(COUNT(*), 0) AS followed
+FROM
+    follow
+WHERE
+    src_user_id = ? AND dist_user_id = user.id) AS followed_by_me
+FROM
+    user
+        INNER JOIN
+    user_extra ON user.id = user_extra.id
+WHERE
+    account = ?');
+  $stmt->bind_param('is', $_SESSION['user.id'], $matches[1]);
+  $stmt->execute();
+  $res = $stmt->get_result();
+  $user_page = $res->fetch_assoc();
+  $stmt->free_result();
+
+  if ($user_page == null) {
+    echo 'Not Found';
+    exit(0);
+  }
+
+  $stmt = $db->prepare('SELECT
+    *
 FROM
     (SELECT
-        *
-    FROM
-        (SELECT
         user.id AS user_id,
             user.account,
             user_extra.name,
@@ -71,9 +108,6 @@ FROM
             blog.text,
             blog.date AS blog_date,
             NULL AS rebloged,
-            NULL AS rebloged_by,
-            NULL AS rebloged_by_name,
-            NULL AS rebloged_by_account,
             IFNULL((SELECT
                     COUNT(*)
                 FROM
@@ -122,7 +156,9 @@ FROM
     FROM
         blog
     INNER JOIN user ON blog.user_id = user.id
-    INNER JOIN user_extra ON user.id = user_extra.id UNION ALL SELECT
+    INNER JOIN user_extra ON user.id = user_extra.id
+    WHERE
+        blog.user_id = ? UNION ALL SELECT
         user.id AS user_id,
             user.account,
             user_extra.name,
@@ -131,19 +167,6 @@ FROM
             blog.text,
             blog.date AS blog_date,
             reblog.date AS rebloged,
-            reblog.user_id AS rebloged_by,
-            (SELECT
-                    name
-                FROM
-                    user_extra
-                WHERE
-                    id = reblog.user_id) AS rebloged_by_name,
-            (SELECT
-                    account
-                FROM
-                    user
-                WHERE
-                    id = reblog.user_id) AS rebloged_by_account,
             IFNULL((SELECT
                     COUNT(*)
                 FROM
@@ -193,30 +216,16 @@ FROM
         blog
     INNER JOIN reblog ON blog.id = reblog.blog_id
     INNER JOIN user ON blog.user_id = user.id
-    INNER JOIN user_extra ON user.id = user_extra.id) AS T) AS T2
-WHERE
-    user_id IN (SELECT
-            follow.dist_user_id
-        FROM
-            follow
-        WHERE
-            follow.src_user_id = ?)
-        OR rebloged_by IN (SELECT
-            follow.dist_user_id
-        FROM
-            follow
-        WHERE
-            follow.src_user_id = ?)
-    OR user_id = ?
-GROUP BY blog_id
+    INNER JOIN user_extra ON user.id = user_extra.id
+    WHERE
+        reblog.user_id = ?) AS T
 ORDER BY (CASE
     WHEN rebloged IS NULL THEN blog_date
     ELSE rebloged
 END) DESC');
-  $stmt->bind_param('iiiiiiiii',
-    $_SESSION['user.id'], $_SESSION['user.id'], $_SESSION['user.id'], $_SESSION['user.id'],
-    $_SESSION['user.id'], $_SESSION['user.id'], $_SESSION['user.id'], $_SESSION['user.id'],
-    $_SESSION['user.id']);
+  $stmt->bind_param('iiiiiiii',
+    $_SESSION['user.id'], $_SESSION['user.id'], $_SESSION['user.id'], $user_page['id'],
+    $_SESSION['user.id'], $_SESSION['user.id'], $_SESSION['user.id'], $user_page['id']);
   $stmt->execute();
   $res = $stmt->get_result();
   $blog_list = [];
@@ -269,7 +278,7 @@ LIMIT 6');
     $top_hashes[] = $data;
   }
 
-  Tmpl::render('/index.php', ['title' => 'الصفحة الرئيسية',
-    'state' => $user_state, 'blogs' => $blog_list, 'hashes' => $top_hashes, 'follow' => $follow]);
-
+  Tmpl::render('/user.php', ['title' => $user_page['name'],
+    'state' => $user_state, 'blogs' => $blog_list, 'hashes' => $top_hashes, 'follow' => $follow, 'page' => $user_page]);
 }
+

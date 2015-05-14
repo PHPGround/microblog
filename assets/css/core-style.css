@@ -30,7 +30,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 /* Copyright Daween 2015 */
 
 body {
-    background: url("../image/background.png") no-repeat center top #25afcc;
+    background: #ffffff;
     color: #555;
     direction: rtl;
     margin: 0;
@@ -48,15 +48,14 @@ a:hover {
     color: #ff6c00;
 }
 
-.container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+h1, h2, h3 {
+    font-family: "Droid Arabic Naskh", Tahoma, serif;
+
+    margin: 0;
 }
 
 #header-outer {
-    background: none repeat scroll 0 0 #ffffff;
+    background: #ffffff;
     border-bottom: 1px solid #bbbbbb;
     border-top: 2px solid #ff6c00;
     height: 40px;
@@ -147,12 +146,13 @@ a:hover {
 }
 
 #body-outer {
-    padding-top: 55px;
+    background: #25afcc url("../image/background.png") no-repeat top center;
+    padding-bottom: 20px;
+    padding-top: 60px;
 }
 
 #body-inner {
-    background: rgba(0, 0, 0, 0.15);
-    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.2);
     margin-left: auto;
     margin-right: auto;
     overflow-y: auto;
@@ -192,6 +192,22 @@ a:hover {
 
 /************************************************************/
 
+footer {
+    display: block;
+}
+
+footer div {
+    height: 50px;
+    line-height: 50px;
+    font-size: x-small;
+    width: 850px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+/************************************************************/
+
 #user-profile {
 
 }
@@ -208,15 +224,25 @@ a:hover {
     height: 80px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -46px;
+    margin-top: -65px;
     width: 80px;
+}
+
+#user-profile > a {
+    display: block;
+    margin-bottom: -10px;
+}
+
+#user-profile > a h3 {
+    font-size: 15px;
+    text-align: center;
 }
 
 #user-profile ul {
     list-style: none;
-    margin: 5px auto 0;
+    margin: 0 auto;
     overflow: auto;
-    padding: 0;
+    padding: 15px 5px 0;
     width: 190px;
 }
 
@@ -327,88 +353,490 @@ a:hover {
     top: 0;
 }
 
+/***********************************************************/
 
-/******************************************/
+.container {
+    background: #ffffff;
+    padding-right: 10px;
+    padding-left: 10px;
+}
 
-.account-form {
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    height: 100%;
+#signup-body {
+    width: 400px;
+    padding: 20px;
+}
+
+/***************************************************************/
+
+#signin-body {
+    width: 400px;
+    padding: 20px;
+}
+
+.form {
+
+}
+
+.form input {
+    background: #fafafa;
+    border: 1px solid #cccccc;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
     width: 100%;
-    z-index: 99999;
+    box-sizing: border-box;
+}
+
+.form label img {
+    height: 150px;
+    width: 150px;
+}
+
+.form button {
+    background: #60b044 linear-gradient(#8add6d, #60b044);
+    border: 1px solid #5ca941;
+    font-family: "Droid Arabic Naskh", Tahoma, serif;
+    margin-top: 20px;
+    width: 100%;
+    height: 55px;
+    color: #fff;
+
+}
+
+.form button:disabled {
+    background: #bbb linear-gradient(#eee, #bbb);
+    background: #bbb linear-gradient(#eee, #bbb);
+    border: 1px solid #bbb;
+}
+
+.form label {
+    display: block;
+    padding-top: 15px;
+}
+
+.form .input-label {
+    font-family: "Droid Arabic Naskh", Tahoma, serif;
+}
+
+.form .input-help {
+    font-size: small;
+    padding: 5px;
+    color: #aaa;
+}
+
+.form .input-error {
+    color: #ff3e2f;
+}
+
+/***********************************************************/
+
+
+/* Post blog */
+#post-blog {
+    background: #ffffff;
+    margin-top: 8px;
+    margin-left: 8px;
+    overflow: auto;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+#post-blog form {
+    /*background: #ffff00;*/
+    padding: 5px;
+}
+
+#post-blog p {
+    display: inline-block;
+    color: #ff6c00;
+    font-family: "Droid Arabic Naskh",Tahoma,serif;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
+#post-blog #remaining-characters {
+    float: left;
+    font-size: 13px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+#post-blog #blogarea-wrapper {
+    background: #ffffff;
+    overflow: auto;
+    margin: 5px 10px 10px;
+    border: 1px solid #bbbbbb;
+}
+
+#post-blog form textarea {
+    border: medium none;
+    box-sizing: border-box;
+    display: block;
+    height: 60px;
+    margin: 0;
+    padding: 5px 5px 0;
+    resize: vertical;
+    width: 100%;
+}
+
+#post-blog ul {
+    display: inline-block;
+    list-style: none;
+    margin: 5px 10px 10px;
+    padding: 0px;
+}
+
+#post-blog li {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+#post-blog li span {
+    font-size: 22px;
+    line-height: 0px;
+    margin-left: 5px;
+}
+
+#post-blog button {
+    border: none;
+    float: left;
+    margin-left: 10px;
+    padding: 5px;
+    width: 80px;
+    background: #ff6c00;
+    font-family: Tahoma, serif;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+#post-blog button:disabled {
+    background: #ffad72;
+}
+
+#smile-list {
+    background: none repeat scroll 0 0 #f4f4f4;
+    border-top: 1px solid #bbb;
     display: none;
 }
 
-.account-form-wrapper {
-    position: absolute;
-    background: #fff;
-    width: 400px;
+#smile-list > ul {
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 5px;
+    width: 590px;
 }
 
-.account-form-close {
+#smile-list li {
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 30px;
+}
+
+
+#smile-list ul li img {
+    display: block;
+    left: 6px;
+    margin-left: auto;
+    margin-right: auto;
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 50px;
-    width: 50px;
-    line-height: 50px !important;
+    top: 6px;
+}
+
+/* Blog class */
+.blog-empty > div {
+    color: #bbb;
+    font-family: Droid Arabic Naskh;
+    font-size: 120%;
+    font-weight: bold;
+    padding: 20px;
     text-align: center;
-    cursor: pointer;
 }
 
-.account-form-close:hover {
+.blog-empty:hover {
+    background: inherit;
+}
+
+.blog {
+    /*background: #ffff00;*/
+    border-bottom: 1px solid #bbbbbb;
+}
+
+.blog:hover {
+    background: #f8f9ff;
+}
+
+.blog a {
+    /*background: #ffff00;*/
+    color: inherit;
+    display: block;
+    overflow: auto;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-top: 3px;
+    text-decoration: none;
+}
+
+.blog a:hover {
     color: #ff6c00;
 }
 
-.account-form-wrapper h3 {
-    background: #f4f4f4;
-    height: 50px;
-    line-height: 50px;
-    margin: 0;
-    padding: 5px 25px 5px 5px;
-    font-family: "Droid Arabic Naskh", Tahoma, serif;
-    text-align: right;
+.blog .blog-time {
+    display: inline-block;
+    float: left;
+    font-size: 11px;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
-.account-form-wrapper form {
-    /*background: greenyellow;*/
-    margin: 25px;
+.blog a img {
+    width: 40px;
+    height: 40px;
+    background: #333333;
+    float: right;
+    margin-right: 3px;
 }
 
-.form-input {
-    border: 2px solid #cccccc;
-    border-bottom-width: 4px;
+.blog a div {
+    /*background: yellowgreen;*/
     font-size: 14px;
-    padding: 0 15px 2px;
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    height: 50px;
-    display: block;
+    margin-right: 50px;
 }
 
-.form-button {
-    background: #58c458;
-    border: medium none;
-    color: #fff;
-    height: 50px;
-    width: 100%;
+.blog a div p {
+    margin: 0px 0px 0px 5px;
+    display: inline-block;
     font-family: "Droid Arabic Naskh", Tahoma, serif;
 }
 
-.form-button:hover {
-    background: #398439;
+.blog a div span {
+    font-size: 12px;
 }
 
-.form-input:focus {
-    border-color: #ff6c00;
+.blog p {
+    margin: -15px 50px 0 10px;
+    white-space: pre-wrap;
 }
 
-.form-input:invalid {
-    border-color: red;
-    box-shadow: none;
+.blog p a {
+    display: inline;
+    color: #ff6c00;
 }
 
-.form-input:last-child {
-    margin-bottom: 0;
+/* Blog options */
+
+#main-list-wrapper {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    margin: 8px 0px 8px 8px;
+}
+
+.blog-options ul {
+    color: #bbb;
+    display: block;
+    font-size: 15px;
+    margin: 10px 0 5px;
+    overflow: auto;
+    padding: 0;
+}
+
+.blog-options ul li {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 50px;
+    overflow: auto;
+    width: 50px;
+}
+
+.blog-options ul li:hover {
+    color: #ff6c00;
+}
+
+
+.blog-options ul li span {
+    font-family: Tahoma;
+    font-size: 13px;
+    margin-right: 3px;
+}
+
+.blog-options ul li a {
+    display: inline;
+    float: right;
+}
+
+
+.image-list {
+    display: block;
+    list-style: outside none none;
+    margin-bottom: -5px;
+    margin-right: 50px;
+    margin-top: 5px;
+    overflow: hidden;
+    padding: 5px 0 0;
+    width: 425px;
+}
+
+
+.image-list li {
+    margin-right: 5px;
+    display: inline-block;
+    float: right;
+}
+
+
+.image-list li img {
+    height: auto;
+    max-height: 100px;
+    max-width: 100px;
+    width: auto;
+}
+
+.comment-icon, .comment-icon a, .comment-icon span {
+    color: #0084b4;
+    font-size: 110%;
+}
+
+.comment-icon:hover, .comment-icon a:hover, .comment-icon span:hover {
+    color: #0084b4;
+}
+
+.reblog-icon, .reblog-icon a, .reblog-icon span {
+    color: #538235;
+    font-size: 110%;
+}
+
+.reblog-icon:hover, .reblog-icon a:hover, .reblog-icon span:hover {
+    color: #538235;
+}
+
+.favorite-icon, .favorite-icon a, .favorite-icon span {
+    color: #FFAC33;
+    font-size: 110%;
+}
+
+.favorite-icon:hover, .favorite-icon a:hover, .favorite-icon span:hover {
+    color: #FFAC33;
+}
+
+.no-reblog-button {
+    cursor: default;
+}
+
+
+.no-reblog-button > * {
+    cursor: default;
+}
+
+/**********************************************************/
+
+#current-user {
+    margin: 0 auto 10px;
+    width: 850px;
+    position: relative;
+}
+
+#current-meta {
+    text-align: center;
+}
+
+
+#current-meta > a {
+    display: inline-block;
+}
+
+#current-meta > a img {
+    border: 5px solid #fff;
+    display: block;
+    height: 130px;
+    margin: 10px auto;
+    width: 130px;
+}
+
+
+#current-meta > div {
+    color: #fff;
+    font-family: Droid Arabic Naskh,Tahoma;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#user-name {
+    color: #fff;
+    font-family: "Droid Arabic Naskh",Tahoma,serif;
+    margin-top: -5px;
+    text-align: center;
+}
+
+#user-account {
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+    text-align: center;
+}
+
+.follow-hide {
+    display: none;
+}
+
+#follow-user {
+    background: #fff;
+    border: medium none;
+    bottom: 8px;
+    color: #333;
+    font-family: Tahoma;
+    font-size: 15px;
+    font-weight: normal;
+    height: 35px;
+    left: 8px;
+    position: absolute;
+    width: 120px;
+}
+
+#follow-user {
+    display: inline;
+    color: #333;
+    background: #ffffff;
+}
+
+#follow-user:hover {
+    background: #f3f3f3;
+}
+
+#followed-user {
+    background: #FF6C00;
+    border: medium none;
+    bottom: 8px;
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 15px;
+    font-weight: normal;
+    height: 35px;
+    left: 8px;
+    position: absolute;
+    width: 120px;
+}
+
+#followed-user:hover {
+    color: #fff;
+    background: #ff5a5d;
+}
+
+#followed-user #button-layer-2 {
+    display: none;
+}
+
+#followed-user:hover #button-layer-1 {
+    display: none;
+}
+
+#followed-user:hover #button-layer-2 {
+    display: inline;
 }

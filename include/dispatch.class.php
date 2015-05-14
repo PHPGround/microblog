@@ -19,17 +19,23 @@ class Dispatch
    */
   public function start()
   {
-    $url = str_replace(APP_BASE_URL, '', strtok($_SERVER['REQUEST_URI'], '?'));
+    $url = str_replace(APP_BASE_URL, '', strtok(urldecode($_SERVER['REQUEST_URI']), '?'));
 
-    foreach($this->table as $regex => $info)
+    foreach($this->table as $meta)
     {
-      if($_SERVER['REQUEST_METHOD'] == $info[0] && preg_match($regex, $url))
+      $regex = $meta[0];
+      $method = $meta[1];
+      $callback = $meta[2];
+
+      if($_SERVER['REQUEST_METHOD'] == $method && preg_match($regex, $url))
       {
-        return $info[1]();
+        return $callback();
       }
     }
 
-    echo 'Page not found';
+    //http_response_code(404);
+    //header('Content-type: plain/text');
+    echo 'Not Found';
     exit(0);
   }
 }
