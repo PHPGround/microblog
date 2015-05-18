@@ -14,4 +14,4 @@ No further development or maintenance is planed.
 
 # Screenshot
 
-![screenshot](https://raw.github.com/Barakat/microblog/branch/assets/ads/screenshot.PNG)
+![screenshot](doc/screenshot.PNG)
